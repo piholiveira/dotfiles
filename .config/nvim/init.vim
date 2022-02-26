@@ -19,12 +19,12 @@ call plug#end()
 " Global Sets """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax on            " Enable syntax highlight
 set nu               " Enable line numbers
-set tabstop=2        " Show existing tab with 4 spaces width
-set softtabstop=2    " Show existing tab with 4 spaces width
-set shiftwidth=2     " When indenting with '>', use 4 spaces width
-set expandtab        " On pressing tab, insert 4 spaces
-set smarttab         " insert tabs on the start of a line according to shiftwidth
-set smartindent      " Automatically inserts one extra level of indentation in some cases
+set tabstop=2        " Show existing tab with 2 spaces width
+set softtabstop=2    " Show existing tab with 2 spaces width
+set shiftwidth=2     " When indenting with '>', use 2 spaces width
+set expandtab        " On pressing tab, insert 2 spaces
+"set smarttab         " insert tabs on the start of a line according to shiftwidth
+"set smartindent      " Automatically inserts one extra level of indentation in some cases
 set hidden           " Hides the current buffer when a new file is openned
 set incsearch        " Incremental search
 set ignorecase       " Ingore case in search
@@ -32,7 +32,7 @@ set smartcase        " Consider case if there is a upper case character
 set scrolloff=8      " Minimum number of lines to keep above and below the cursor
 set colorcolumn=100  " Draws a line at the given line to keep aware of the line size
 set signcolumn=yes   " Add a column on the left. Useful for linting
-set cmdheight=2      " Give more space for displaying messages
+set cmdheight=1      " Give more space for displaying messages
 set updatetime=100   " Time in miliseconds to consider the changes
 set encoding=utf-8   " The encoding should be utf-8 to activate the font icons
 set nobackup         " No backup files
@@ -41,45 +41,40 @@ set splitright       " Create the vertical splits to the right
 set splitbelow       " Create the horizontal splits below
 set autoread         " Update vim after file update from outside
 set mouse=a          " Enable mouse support
-filetype on          " Detect and set the filetype option and trigger the FileType Event
-filetype plugin on   " Load the plugin file for the file type, if any
-filetype indent on   " Load the indent file for the file type, if any
+"filetype on          " Detect and set the filetype option and trigger the FileType Event
+"filetype plugin on   " Load the plugin file for the file type, if any
+""filetype indent on   " Load the indent file for the file type, if any
 
 " Theme """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 colorscheme gruvbox
 set background=dark
 
 " Maps """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"nmap <C-b> :CocCommand explorer<CR>
-nmap <C-b> :NERDTreeToggle<CR>
+nmap <C-b> :CocCommand explorer<CR>
+"nmap <C-b> :NERDTreeToggle<CR>
 nmap <S-Tab> :bp<Return>
 nmap <Tab> :bn<Return>
 let mapleader = ","
-
-" Use preset argument to open it
-nnoremap <space>ed :CocCommand explorer --preset .vim<CR>
-nnoremap <space>ef :CocCommand explorer --preset floating<CR>
-nnoremap <space>ec :CocCommand explorer --preset cocConfig<CR>
-nnoremap <space>eb :CocCommand explorer --preset buffer<CR>
 
 " List all presets
 nnoremap <space>el :CocList explPresets
 
 " Telescope """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nmap <C-f> :Telescope live_grep<Return>
 
 " ctrlp """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
 " AirLine """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 1 " This is disabled by default; add the following to your vimrc to enable the extension
+let g:airline#extensions#tabline#left_sep = ' ' " Separators can be configured independently for the tabline, so here is how you can define
+let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline_powerline_fonts = 1
 let g:airline_statusline_ontop= 0
-let g:airline#extensions#tabline#show_buffers = 1
-let g:airline#extensions#tabline#formatter = 'default'
+let g:airline#extensions#tabline#show_buffers = 1 
+let g:airline#extensions#tabline#formatter = 'jsformatter'
+let g:airline_solorized_bg='dark'
+let g:airline_theme='sobrio'
 
 " COC """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:coc_global_extensions = [
@@ -97,11 +92,6 @@ let g:coc_global_extensions = [
 
 " NERDTree """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let NERDTreeShowHidden = 1 " show hidden files
-"let g:NERDTreeGitStatusUseNerdFonts = 1 " you should install nerdfonts by yourself. default: 0
-"let g:NERDTreeGitStatusShowIgnored = 1 " a heavy feature may cost much more time. default: 0
-"let g:NERDTreeGitStatusUntrackedFilesMode = 'all' " a heavy feature too. default: normal
-"let g:NERDTreeGitStatusShowClean = 1 " default: 0
-"let g:NERDTreeGitStatusConcealBrackets = 1 " default: 0
 
 " Autocmd """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "function! HighlightWordUnderCursor()
